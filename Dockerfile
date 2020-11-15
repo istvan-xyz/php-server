@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 RUN apt update && \
     apt install -fuy libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libicu-dev libcurl4-openssl-dev && \

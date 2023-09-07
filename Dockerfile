@@ -2,8 +2,9 @@ FROM php:8.1.18-fpm
 
 RUN apt update && \
     apt install -fuy libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libicu-dev libcurl4-openssl-dev && \
-    pecl install zip sendmail openssl && \
+    pecl install zip sendmail openssl xdebug && \
     docker-php-ext-enable zip && \
+    docker-php-ext-enable xdebug && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd && \
     docker-php-ext-install -j$(nproc) curl && \

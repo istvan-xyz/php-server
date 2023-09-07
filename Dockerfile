@@ -1,7 +1,7 @@
-FROM php:8.1.18-fpm
+FROM php:8.2.5-fpm-bullseye
 
 RUN apt update && \
-    apt install -fuy libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libicu-dev libcurl4-openssl-dev && \
+    apt install -fuy supervisor nginx libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libicu-dev libcurl4-openssl-dev && \
     pecl install zip sendmail openssl xdebug && \
     docker-php-ext-enable zip && \
     docker-php-ext-enable xdebug && \
@@ -16,4 +16,24 @@ RUN apt update && \
     docker-php-ext-install -j$(nproc) sockets && \
     php -r 'var_dump(function_exists("imagecreatefromjpeg"));'
 
+RUN mkdir -p /www
+
 COPY php.ini /usr/local/etc/php/php.ini
+
+EXPOSE 80
+
+COPY supervisord.conf /etc/supervisord.conf
+
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx-default.conf /etc/nginx/conf.d/default.conf
+
+COPY docker-entrypoint.sh /
+COPY docker-entrypoint.d /docker-entrypoint.d
+
+# STOPSIGNAL SIGQUIT
+
+WORKDIR /
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["nginx", "-g", "daemon off;"]

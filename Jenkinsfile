@@ -37,6 +37,8 @@ node {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'username')]) {
             sh 'docker login -u $username -p $password'
         }
+        
+        sh 'mkdir -p docker-entrypoint.d'
 
         try {
             sh 'docker run --privileged --rm tonistiigi/binfmt --install arm64,arm'

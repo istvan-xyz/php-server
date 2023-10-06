@@ -19,6 +19,7 @@ RUN apt update && \
 RUN mkdir -p /www
 
 COPY php.ini /usr/local/etc/php/php.ini
+COPY www.conf /usr/local/etc/php-fpm.d/www.conf
 
 EXPOSE 80
 

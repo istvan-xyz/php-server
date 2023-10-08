@@ -1,11 +1,11 @@
 FROM php:8.2.5-fpm-bullseye
 
 RUN apt update && \
-    apt install -fuy supervisor nginx libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libicu-dev libcurl4-openssl-dev && \
+    apt install -fuy supervisor nginx libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libwebp-dev libicu-dev libcurl4-openssl-dev && \
     pecl install zip sendmail openssl xdebug && \
     docker-php-ext-enable zip && \
     docker-php-ext-enable xdebug && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install -j$(nproc) gd && \
     docker-php-ext-install -j$(nproc) curl && \
     docker-php-ext-install -j$(nproc) intl && \

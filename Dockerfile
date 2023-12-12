@@ -2,9 +2,10 @@ FROM php:8.2.5-fpm-bullseye
 
 RUN apt update && \
     apt install -fuy supervisor nginx libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libwebp-dev libicu-dev libcurl4-openssl-dev && \
-    pecl install zip sendmail openssl xdebug && \
+    pecl install zip sendmail openssl xdebug redis && \
     docker-php-ext-enable zip && \
     docker-php-ext-enable xdebug && \
+    docker-php-ext-enable redis && \
     docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install -j$(nproc) gd && \
     docker-php-ext-install -j$(nproc) curl && \
@@ -14,7 +15,6 @@ RUN apt update && \
     docker-php-ext-install -j$(nproc) pdo_mysql && \
     docker-php-ext-install -j$(nproc) opcache && \
     docker-php-ext-install -j$(nproc) sockets && \
-    docker-php-ext-install -j$(nproc) redis && \
     php -r 'var_dump(function_exists("imagecreatefromjpeg"));'
 
 RUN mkdir -p /www

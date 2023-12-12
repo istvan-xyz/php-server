@@ -14,6 +14,7 @@ RUN apt update && \
     docker-php-ext-install -j$(nproc) pdo_mysql && \
     docker-php-ext-install -j$(nproc) opcache && \
     docker-php-ext-install -j$(nproc) sockets && \
+    docker-php-ext-install -j$(nproc) redis && \
     php -r 'var_dump(function_exists("imagecreatefromjpeg"));'
 
 RUN mkdir -p /www

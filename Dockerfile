@@ -1,4 +1,4 @@
-FROM php:8.2.5-fpm-bullseye
+FROM php:8.3-fpm-bullseye
 
 RUN apt update && \
     apt install -fuy supervisor nginx libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libwebp-dev libicu-dev libcurl4-openssl-dev && \

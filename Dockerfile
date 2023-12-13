@@ -2,9 +2,8 @@ FROM php:8.3-fpm-bullseye
 
 RUN apt update && \
     apt install -fuy supervisor nginx libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libwebp-dev libicu-dev libcurl4-openssl-dev && \
-    pecl install zip sendmail openssl xdebug && \
+    pecl install zip sendmail openssl && \
     docker-php-ext-enable zip && \
-    docker-php-ext-enable xdebug && \
     docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install -j$(nproc) gd && \
     docker-php-ext-install -j$(nproc) curl && \

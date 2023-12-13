@@ -29,6 +29,8 @@ COPY supervisord.conf /etc/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY nginx-default.conf /etc/nginx/conf.d/default.conf
 
+COPY php-fpm.conf /usr/local/etc/php-fpm.conf
+
 COPY docker-entrypoint.sh /
 COPY docker-entrypoint.d /docker-entrypoint.d
 

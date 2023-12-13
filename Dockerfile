@@ -2,8 +2,7 @@ FROM php:8.3-fpm-bullseye
 
 RUN apt update && \
     apt install -fuy supervisor nginx libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libwebp-dev libicu-dev libcurl4-openssl-dev && \
-    pecl install zip sendmail openssl xdebug && \
-    pickle install redis && \
+    pecl install zip sendmail openssl xdebug redis && \
     docker-php-ext-enable zip && \
     docker-php-ext-enable xdebug && \
     docker-php-ext-enable redis && \

@@ -1,4 +1,4 @@
-FROM 8.3-fpm-bookworm
+FROM php:8.3-fpm-bookworm
 
 RUN apt update && \
     apt install -fuy supervisor nginx libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libwebp-dev libicu-dev libcurl4-openssl-dev && \

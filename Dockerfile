@@ -14,7 +14,9 @@ RUN apt update && \
     docker-php-ext-install -j$(nproc) pdo_mysql && \
     docker-php-ext-install -j$(nproc) opcache && \
     docker-php-ext-install -j$(nproc) sockets && \
-    php -r 'var_dump(function_exists("imagecreatefromjpeg"));'
+    php -r 'var_dump(function_exists("imagecreatefromjpeg"));' && \
+    ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log
 
 RUN mkdir -p /www
 

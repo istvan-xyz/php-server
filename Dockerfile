@@ -1,7 +1,7 @@
 FROM php:8.3-fpm-bookworm
 
 RUN apt update && \
-    apt install -fuy supervisor nginx libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libwebp-dev libicu-dev libcurl4-openssl-dev && \
+    apt install -fuy supervisor nginx gettext-base unzip wget libpq-dev libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libwebp-dev libicu-dev libcurl4-openssl-dev && \
     pecl install zip sendmail openssl redis && \
     docker-php-ext-enable zip && \
     docker-php-ext-enable redis && \
@@ -10,13 +10,18 @@ RUN apt update && \
     docker-php-ext-install -j$(nproc) curl && \
     docker-php-ext-install -j$(nproc) intl && \
     docker-php-ext-install -j$(nproc) mysqli && \
+    docker-php-ext-install -j$(nproc) pdo_pgsql && \
     docker-php-ext-install -j$(nproc) pdo && \
     docker-php-ext-install -j$(nproc) pdo_mysql && \
     docker-php-ext-install -j$(nproc) opcache && \
     docker-php-ext-install -j$(nproc) sockets && \
     php -r 'var_dump(function_exists("imagecreatefromjpeg"));' && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
-    ln -sf /dev/stderr /var/log/nginx/error.log
+    ln -sf /dev/stderr /var/log/nginx/error.log && \
+    cd /tmp && \
+    wget https://getcomposer.org/installer && \
+    php installer --filename=composer --install-dir=/usr/local/bin && \
+    rm installer
 
 RUN mkdir -p /www
 

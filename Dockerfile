@@ -10,8 +10,8 @@ RUN apt update && \
     docker-php-ext-install -j$(nproc) curl && \
     docker-php-ext-install -j$(nproc) intl && \
     docker-php-ext-install -j$(nproc) mysqli && \
-    docker-php-ext-install -j$(nproc) pdo_pgsql && \
     docker-php-ext-install -j$(nproc) pdo && \
+    docker-php-ext-install -j$(nproc) pdo_pgsql && \
     docker-php-ext-install -j$(nproc) pdo_mysql && \
     docker-php-ext-install -j$(nproc) opcache && \
     docker-php-ext-install -j$(nproc) sockets && \
@@ -22,6 +22,10 @@ RUN apt update && \
     wget https://getcomposer.org/installer && \
     php installer --filename=composer --install-dir=/usr/local/bin && \
     rm installer
+
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log
 
 RUN mkdir -p /www
 

@@ -2,7 +2,7 @@ FROM php:8.3-fpm-bookworm
 
 RUN apt update && \
     apt install -fuy supervisor nginx gettext-base unzip wget libpq-dev libzip-dev libfreetype6-dev libjpeg-dev libpng-dev libwebp-dev libicu-dev libcurl4-openssl-dev && \
-    pecl install zip sendmail openssl redis && \
+    pecl install zip sendmail openssl redis excimer && \
     docker-php-ext-enable zip && \
     docker-php-ext-enable redis && \
     docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
